@@ -56,7 +56,7 @@ public class AccountController {
     }
 
     //todo 회원 수정
-    //note patch매핑
+    //note patch 매핑
     @PutMapping("/accounts/{id}")
     public String modifyAccount(@PathVariable("id") Long id,
                                 @RequestBody AccountRequestDto accountRequestDto) {
