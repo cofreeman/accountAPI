@@ -18,8 +18,10 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
 
+
+    //todo: AccountResponseDto를 반환
     @Override
-    public AccountResponseDto createAccount(AccountRequestDto accountRequestDto) {
+    public Account createAccount(AccountRequestDto accountRequestDto) {
         Account account = new Account();
 
         account.setEmail(accountRequestDto.getEmail());

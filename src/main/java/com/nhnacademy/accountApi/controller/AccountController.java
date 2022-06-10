@@ -1,10 +1,12 @@
 package com.nhnacademy.accountApi.controller;
 
 import com.nhnacademy.accountApi.dto.AccountRequestDto;
-import com.nhnacademy.accountApi.dto.AccountResponseDto;
 import com.nhnacademy.accountApi.entity.Account;
 import com.nhnacademy.accountApi.service.AccountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,27 +14,29 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+//@RequestMapping("/accounts")todo: 빼기
 @RequiredArgsConstructor
 public class AccountController {
 
     //note return = responseEntity. responseEntity = header + body 
     private final AccountService accountService;
 
-
     //note restTemplate 에는 requestHeader + requestBody 가 담겨져 오니까 매개변수로 @RequestBody를 받는다.
     //todo 회원 추가
     @PostMapping("/accounts")
-    public ResponseEntity<AccountResponseDto> createAccount(@RequestBody AccountRequestDto accountRequestDto) {
+    public ResponseEntity<Account> createAccount(@RequestBody AccountRequestDto accountRequestDto) {
 
+        //note 자바객체를 json 으로 변경
         Account account = accountService.createAccount(accountRequestDto);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
 
-//        return ResponseEntity.
-//                status(HttpStatus.OK).
-//                headers().
-//                contentType(MediaType.APPLICATION_JSON).
-//                body();
 
-        return null;
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .headers(httpHeaders)
+                .body(account);
     }
 
     //todo 회원 조회
