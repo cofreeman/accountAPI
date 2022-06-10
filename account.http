@@ -1,0 +1,13 @@
+#account create
+#요청헤더와 바디를 직접 구성해서 api를 호출
+
+#Http method + url +  http버전(1.1)
+
+GET http://localhost:8080/accounts HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": "freeman",
+  "password": "123",
+  "email": "jwoo1016@naver.com"
+}
