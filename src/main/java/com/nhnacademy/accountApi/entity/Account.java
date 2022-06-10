@@ -1,10 +1,7 @@
 package com.nhnacademy.accountApi.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -20,17 +17,19 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long accountId;
-    private String email;
-    private String password;
     private String id;
-    private String state;
+    private String password;
+    private String email;
 
-    public Account(Account account) {
-        this.setAccountId(account.getAccountId());
-        this.setId(account.getId());
-        this.setEmail(account.getEmail());
-        this.setPassword(account.getPassword());
-        this.setPassword(account.getState());
+    @Enumerated(EnumType.STRING)
+    private AccountState state;
+
+    @Builder
+    public Account(String id,String password,String email) {
+        this.id = id;
+        this.password = password;
+        this.email = email;
+        this.state = AccountState.JOIN;
     }
 
 
@@ -42,4 +41,15 @@ public class Account {
     //	`id`	varchar(20)	NOT NULL,
     //	`state`	varchar(20)	NOT NULL
     //);
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountId=" + accountId +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", id='" + id + '\'' +
+                ", state='" + state + '\'' +
+                '}';
+    }
 }
