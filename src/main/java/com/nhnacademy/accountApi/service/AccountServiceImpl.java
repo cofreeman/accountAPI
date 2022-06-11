@@ -2,11 +2,11 @@ package com.nhnacademy.accountApi.service;
 
 import com.nhnacademy.accountApi.dto.AccountRequestDto;
 import com.nhnacademy.accountApi.entity.Account;
-import com.nhnacademy.accountApi.entity.AccountState;
 import com.nhnacademy.accountApi.exception.NotFoundAccountException;
 import com.nhnacademy.accountApi.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +19,7 @@ public class AccountServiceImpl implements AccountService {
 
 
     //todo: AccountResponseDto를 반환
+    @Transactional
     @Override
     public Account createAccount(AccountRequestDto accountRequestDto) {
         Account account = new Account();
@@ -44,6 +45,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public Account modifyAccount(Long id, AccountRequestDto accountRequestDto) {
 
         Account account = accountRepository.findById(id).orElseThrow(NotFoundAccountException::new);
@@ -54,6 +56,5 @@ public class AccountServiceImpl implements AccountService {
         account.setState(accountRequestDto.getState());
 
         return accountRepository.save(account);
-
     }
 }

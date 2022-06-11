@@ -23,7 +23,6 @@ public class AccountController {
 
     //note restTemplate 에는 requestHeader + requestBody 가 담겨져 오니까 매개변수로 @RequestBody를 받는다.
     //todo 회원 추가
-    @Transactional
     @PostMapping
     public ResponseEntity<Account> createAccount(@RequestBody AccountRequestDto accountRequestDto) {
 
@@ -76,8 +75,7 @@ public class AccountController {
 
     //todo 회원 수정
     //note patch 매핑
-    @Transactional
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<Account> modifyAccount(@PathVariable("id") Long id,
                                                  @RequestBody AccountRequestDto accountRequestDto) {
 
@@ -92,21 +90,4 @@ public class AccountController {
                 .headers(httpHeaders)
                 .body(account);
     }
-
-//    //todo 회원 삭제
-//    @Transactional
-//    @PostMapping("/{id}")
-//    public ResponseEntity<Account> deleteAccount(@PathVariable("id") Long id) {
-//        Account account = accountService.deleteAccount(id);
-//
-//
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-//        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
-//
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .headers(httpHeaders)
-//                .body(account);
-//    }
 }

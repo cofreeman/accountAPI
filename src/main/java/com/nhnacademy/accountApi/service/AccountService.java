@@ -1,11 +1,9 @@
 package com.nhnacademy.accountApi.service;
 
 import com.nhnacademy.accountApi.dto.AccountRequestDto;
-import com.nhnacademy.accountApi.dto.AccountResponseDto;
 import com.nhnacademy.accountApi.entity.Account;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AccountService {
     Account createAccount(AccountRequestDto accountRequestDto);
@@ -14,6 +12,6 @@ public interface AccountService {
 
     List<Account> findAccounts();
 
-    Account modifyAccount(Long id,AccountRequestDto accountRequestDto);
+    Account modifyAccount(Long id, AccountRequestDto accountRequestDto);
 
 }
