@@ -12,10 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-//@RequestMapping("/accounts")todo: 빼기
+@RequestMapping("/accounts")
 @RequiredArgsConstructor
 public class AccountController {
 
@@ -25,7 +24,7 @@ public class AccountController {
     //note restTemplate 에는 requestHeader + requestBody 가 담겨져 오니까 매개변수로 @RequestBody를 받는다.
     //todo 회원 추가
     @Transactional
-    @PostMapping("/accounts")
+    @PostMapping
     public ResponseEntity<Account> createAccount(@RequestBody AccountRequestDto accountRequestDto) {
 
         //note 자바객체를 json 으로 변경
@@ -42,15 +41,12 @@ public class AccountController {
     }
 
     //todo 회원 조회
-    @GetMapping("/accounts/{id}")
-    public ResponseEntity<Optional<Account>> getAccount(@PathVariable("id") Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Account> getAccount(@PathVariable("id") Long id) {
         //fixme: id 값 검증 하자!
 
         //todo: Qdsl custom
-        Optional<Account> account = accountService.findAccount(id);
-        if (account.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+        Account account = accountService.findAccount(id);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -63,52 +59,45 @@ public class AccountController {
     }
 
     //todo 회원전체 조회
-    @GetMapping("/accounts")
-    public ResponseEntity<List<Optional<Account>>> getAccounts() {
+    @GetMapping
+    public ResponseEntity<List<Account>> getAccounts() {
 
-        List<Optional<Account>> accounts = accountService.findAccounts();
+        List<Account> accounts = accountService.findAccounts();
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
 
-        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(accounts);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .headers(httpHeaders)
+                .body(accounts);
     }
 
     //todo 회원 수정
     //note patch 매핑
     @Transactional
-    @PutMapping("/accounts/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Account> modifyAccount(@PathVariable("id") Long id,
                                                  @RequestBody AccountRequestDto accountRequestDto) {
 
-        Optional<Account> willModifiedAccount = accountService.findAccount(id);
-        if (willModifiedAccount.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-        Account account = accountService.modifyAccount(id);
+        Account account = accountService.modifyAccount(id, accountRequestDto);
 
-        account.setId(accountRequestDto.getId());
-        account.setPassword(accountRequestDto.getPassword());
-        account.setEmail(accountRequestDto.getEmail());
-        account.setState(accountRequestDto.getState());
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
 
-        accountService.
-        return null;
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .headers(httpHeaders)
+                .body(account);
     }
 
     //todo 회원 삭제
     @Transactional
-    @PostMapping("/accounts/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<Account> deleteAccount(@PathVariable("id") Long id) {
-        Optional<Account> account = accountService.findAccount(id);
-        if (account.isEmpty()){
-            //question: 여기서 헤더 바디 안담아도 되나?
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
         accountService.deleteAccount(id);
-        //question: 여기도?
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
