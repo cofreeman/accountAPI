@@ -22,7 +22,6 @@ public class AccountController {
     private final AccountService accountService;
 
     //note restTemplate 에는 requestHeader + requestBody 가 담겨져 오니까 매개변수로 @RequestBody를 받는다.
-    //todo 회원 추가
     @PostMapping
     public ResponseEntity<Account> createAccount(@RequestBody AccountRequestDto accountRequestDto) {
 
@@ -39,12 +38,9 @@ public class AccountController {
                 .body(account);
     }
 
-    //todo 회원 조회
     @GetMapping("/{id}")
     public ResponseEntity<Account> getAccount(@PathVariable("id") Long id) {
-        //fixme: id 값 검증 하자!
 
-        //todo: Qdsl custom
         Account account = accountService.findAccount(id);
 
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -57,7 +53,6 @@ public class AccountController {
                 .body(account);
     }
 
-    //todo 회원전체 조회
     @GetMapping
     public ResponseEntity<List<Account>> getAccounts() {
 
@@ -73,7 +68,6 @@ public class AccountController {
                 .body(accounts);
     }
 
-    //todo 회원 수정
     //note patch 매핑
     @PostMapping("/{id}")
     public ResponseEntity<Account> modifyAccount(@PathVariable("id") Long id,

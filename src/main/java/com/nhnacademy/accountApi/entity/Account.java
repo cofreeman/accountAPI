@@ -12,7 +12,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Table(name = "users")
 public class Account {
-    //todo
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")

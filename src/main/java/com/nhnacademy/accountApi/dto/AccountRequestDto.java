@@ -9,7 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AccountRequestDto {
-    //todo:
 
     private String id;
     private String password;
