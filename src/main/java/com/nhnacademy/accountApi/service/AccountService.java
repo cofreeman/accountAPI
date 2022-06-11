@@ -10,11 +10,10 @@ import java.util.Optional;
 public interface AccountService {
     Account createAccount(AccountRequestDto accountRequestDto);
 
-가    Account findAccount(Long id);
+    Account findAccount(Long id);
 
     List<Account> findAccounts();
 
     Account modifyAccount(Long id,AccountRequestDto accountRequestDto);
 
-    void deleteAccount(Long id);
 }

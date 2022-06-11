@@ -2,6 +2,7 @@ package com.nhnacademy.accountApi.service;
 
 import com.nhnacademy.accountApi.dto.AccountRequestDto;
 import com.nhnacademy.accountApi.entity.Account;
+import com.nhnacademy.accountApi.entity.AccountState;
 import com.nhnacademy.accountApi.exception.NotFoundAccountException;
 import com.nhnacademy.accountApi.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,9 +34,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account findAccount(Long id) {
-        Account account = accountRepository.findById(id).orElseThrow(NotFoundAccountException::new);
+        return accountRepository.findById(id).orElseThrow(NotFoundAccountException::new);
 
-        return account;
     }
 
     @Override
@@ -44,15 +44,16 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account modifyAccount(Long id,AccountRequestDto accountRequestDto) {
+    public Account modifyAccount(Long id, AccountRequestDto accountRequestDto) {
 
         Account account = accountRepository.findById(id).orElseThrow(NotFoundAccountException::new);
-        account.setAccountId();
-        return null;
-    }
 
-    @Override
-    public void deleteAccount(Long id) {
+        account.setEmail(accountRequestDto.getEmail());
+        account.setId(accountRequestDto.getId());
+        account.setPassword(accountRequestDto.getPassword());
+        account.setState(accountRequestDto.getState());
+
+        return accountRepository.save(account);
 
     }
 }

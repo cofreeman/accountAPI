@@ -93,11 +93,20 @@ public class AccountController {
                 .body(account);
     }
 
-    //todo 회원 삭제
-    @Transactional
-    @PostMapping("/{id}")
-    public ResponseEntity<Account> deleteAccount(@PathVariable("id") Long id) {
-        accountService.deleteAccount(id);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
+//    //todo 회원 삭제
+//    @Transactional
+//    @PostMapping("/{id}")
+//    public ResponseEntity<Account> deleteAccount(@PathVariable("id") Long id) {
+//        Account account = accountService.deleteAccount(id);
+//
+//
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+//        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+//
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .headers(httpHeaders)
+//                .body(account);
+//    }
 }
