@@ -11,3 +11,25 @@ Content-Type: application/json
   "password": "123",
   "email": "jwoo1016@naver.com"
 }
+###
+GET http://localhost:9090/accounts/1 HTTP/1.1
+###
+GET http://localhost:9090/accounts HTTP/1.1
+###
+POST http://localhost:9090/accounts/4 HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": "freeman2",
+  "password": "124",
+  "email": "jwoo1017@naver.com"
+}
+###
+GET http://localhost:9090/accounts/4/deleted HTTP/1.1
+###
+GET http://localhost:9090/accounts/5/resting HTTP/1.1
+###
+GET http://localhost:9090/accounts/4/join HTTP/1.1
+###
+
+

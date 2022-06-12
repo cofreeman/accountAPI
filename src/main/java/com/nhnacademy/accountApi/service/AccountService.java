@@ -14,4 +14,9 @@ public interface AccountService {
 
     Account modifyAccount(Long id, AccountRequestDto accountRequestDto);
 
+    Account modifyAccountStateJoin(Long id);
+
+    Account modifyAccountStateDeleted(Long id);
+
+    Account modifyAccountStateResting(Long id);
 }

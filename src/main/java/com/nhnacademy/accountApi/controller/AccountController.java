@@ -2,6 +2,7 @@ package com.nhnacademy.accountApi.controller;
 
 import com.nhnacademy.accountApi.dto.AccountRequestDto;
 import com.nhnacademy.accountApi.entity.Account;
+import com.nhnacademy.accountApi.repository.AccountRepository;
 import com.nhnacademy.accountApi.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -84,4 +85,45 @@ public class AccountController {
                 .headers(httpHeaders)
                 .body(account);
     }
+
+    @GetMapping("/{id}/join")
+    public ResponseEntity<Account> modifyAccountStateJoin(@PathVariable("id") Long id) {
+
+        Account account = accountService.modifyAccountStateJoin(id);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .headers(httpHeaders)
+                .body(account);
+    }
+    @GetMapping("/{id}/deleted")
+    public ResponseEntity<Account> modifyAccountStateDeleted(@PathVariable("id") Long id) {
+
+        Account account = accountService.modifyAccountStateDeleted(id);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .headers(httpHeaders)
+                .body(account);
+    }
+    @GetMapping("/{id}/resting")
+    public ResponseEntity<Account> modifyAccountStateResting(@PathVariable("id") Long id) {
+
+        Account account = accountService.modifyAccountStateResting(id);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .headers(httpHeaders)
+                .body(account);
+    }
+
 }
